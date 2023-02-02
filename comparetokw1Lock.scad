@@ -1,4 +1,4 @@
-$fn = 365 ;
+$fn = 365;
 // tollerance
 $tol = 0.05;
 // How many chambers are there in the lock to hold pins?
@@ -64,7 +64,7 @@ module compare_to_kw1_bible(){
             translate([0,0,3.3]){
                 cylinder(d1=$plug_diamater+$tol+4.09, d2=$plug_diamater+$tol+4.09, $plug_length-8.3);
             }
-            translate([0,-10,3.3]){
+            translate([0,-11,3.3]){
                 cylinder(d1=$plug_diamater+$tol+4.09, d2=$plug_diamater+$tol+4.09, $plug_length-8.3);
             }
         }
@@ -72,14 +72,32 @@ module compare_to_kw1_bible(){
         union() {
             translate([9,-6,-2]){
             rotate([0, 0, 180]) {
-            linear_extrude(height =4) resize([0,10,0], auto=true) import("WheatForWoodMark.svg");
+            linear_extrude(height =2.5) resize([0,10,0], auto=true) import("WheatForWoodMark.svg");
             }
         }
             // chamber holes
+            for ( i = [0 : ($number_chambers-1)] ){
+                translate([0,.80,($first_pin_offset + ($chamber_dist*i))]) {
+                    rotate([90, 0 , 0]){
+                        cylinder(d1=$chamber_dia, d2=$chamber_dia, h=18.8);
+                    }
+                }
+            }
+            
+            // vent holes for chambers (to prevent top pins getting stuck issue due to vacuum)
             for ( i = [0 : ($number_chambers - 1)] ){
                 translate([0,.80,($first_pin_offset + ($chamber_dist*i))]) {
                     rotate([90, 0 , 0]){
-                        cylinder(d1=$chamber_dia, d2=$chamber_dia, h=16.8);
+                        cylinder(d1=1, d2=1, h=25);
+                    }
+                }
+            }
+            
+            // access to chamber holes for excess resin cleaning (to prevent top pins getting stuck excess resin getting stuck then curing issue)
+            for ( i = [0 : ($number_chambers - 1)] ){
+                translate([0,10,($first_pin_offset + ($chamber_dist*i))]) {
+                    rotate([90, 0 , 0]){
+                        cylinder(d1=$chamber_dia, d2=$chamber_dia, h=$bible_thickness*2);
                     }
                 }
             }
