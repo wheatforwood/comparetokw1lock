@@ -70,7 +70,7 @@ module compare_to_kw1_bible(){
         }
         //subtractive
         union() {
-            translate([9,-6,-2]){
+            translate([9,-7.75,-2]){
             rotate([0, 0, 180]) {
             linear_extrude(height =2.5) resize([0,10,0], auto=true) import("WheatForWoodMark.svg");
             }
@@ -93,7 +93,7 @@ module compare_to_kw1_bible(){
                 }
             }
             
-            // access to chamber holes for excess resin cleaning (to prevent top pins getting stuck excess resin getting stuck then curing issue)
+            // access to chamber holes for excess resin cleaning (to prevent excess resin getting stuck in chambers then curing issue)
             for ( i = [0 : ($number_chambers - 1)] ){
                 translate([0,10,($first_pin_offset + ($chamber_dist*i))]) {
                     rotate([90, 0 , 0]){
@@ -105,7 +105,7 @@ module compare_to_kw1_bible(){
             translate([0,0,-0.05]){
                 // The 0.15 below is a manual ajdument after a LOT of trial/error
                 cylinder(d1=$plug_diamater+$tol+0.15, d2=$plug_diamater+$tol+0.15, h=$plug_length);
-                cylinder(d1=$plug_diamater+3.6+$tol, d2=$plug_diamater+3.6+$tol, h=2.5+$tol);
+                cylinder(d1=$plug_diamater+4.6+$tol, d2=$plug_diamater+4.6+$tol, h=2.6+$tol);
             }
             
         }
